@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="sr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BeTourist — Putovanja koja pamtiš</title>
+    <meta name="description" content="BeTourist — ljetovanja, zimovanja, gradski turizam i egzotične destinacije." />
+    
+    <!-- Eksterni fontovi i ikonice -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght=400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/lucide-static@0.453.0/font/lucide.css" rel="stylesheet" />
+    
+    <!-- Povezivanje eksternog CSS fajla -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- FIKSIRANI HEADER / NAVIGACIJA -->
+    <header class="main-header">
+        <nav class="nav-container">
+            <div class="nav-brand-group">
+                <a href="#" class="logo-area">
+                    <div class="logo-image-wrapper">
+                        <img src="slikesajt/logoo.png" alt="BeTourist Logo" />
+                    </div>
+                    <span class="logo-text">Be<span class="font-extrabold">Tourist</span></span>
+                </a>
+                <div class="auth-quick-actions">
+                    <button onclick="openAuth('login')" class="btn-secondary-pill">Prijavi se</button>
+                    <button onclick="openAuth('register')" class="btn-white-pill">Registruj se</button>
+                </div>
+            </div>
+            
+            <div class="nav-links-menu">
+                <a href="#destinacije" class="nav-link-item">Destinacije</a>
+                <a href="#ponude" class="nav-link-item">Ponude</a>
+                <a href="#zasto" class="nav-link-item">O nama</a>
+                <a href="#recenzije" class="nav-link-item">Recenzije</a>
+            </div>
+            
+            <div class="nav-right-action">
+                <button onclick="openAuth('login')" class="btn-white-pill shadow-btn">Rezerviši</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- AUTHENTICATION MODAL -->
+    <div id="authModal" class="modal-overlay hidden" onclick="closeAuth()">
+        <div class="modal-wrapper max-w-sm" onclick="event.stopPropagation()">
+            <button onclick="closeAuth()" class="modal-close-btn">&times;</button>
+            <h2 id="authTitle" class="modal-heading text-brand">Prijavi se</h2>
+            <p id="authSubtitle" class="modal-subheading">Dobrodošli nazad u BeTourist</p>
+
+            <div class="social-auth-buttons">
+                <button class="btn-social-auth">
+                    <svg class="icon-svg" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6 l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+                    Nastavi sa Google
+                </button>
+                <button class="btn-social-auth">
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.26h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg>
+                    Nastavi sa Facebook
+                </button>
+            </div>
+
+            <div class="auth-divider">
+                <span>ili</span>
+            </div>
+
+            <form class="auth-form-element" onsubmit="event.preventDefault()">
+                <input type="email" placeholder="Email adresa" class="form-input-field" required />
+                <input type="password" placeholder="Lozinka" class="form-input-field" required />
+                <button class="btn-brand-full" id="authSubmit">Prijavi se</button>
+            </form>
+
+            <p class="auth-switch-prompt">
+                <span id="authSwitchText">Nemate nalog?</span>
+                <button onclick="toggleAuth()" class="btn-text-link" id="authSwitchBtn" data-mode="register">Registruj se</button>
+            </p>
+        </div>
+    </div>
+
+    <!-- HERO PRETRAGA SEKCIJA -->
+    <section class="hero-block">
+        <div class="hero-background-image"></div>
+        <div class="hero-dark-overlay"></div>
+
+        <div class="hero-content-inner">
+            <h1 class="hero-main-title">Putovanje koje pamtiš počinje sa <span class="no-wrap">BeTourist</span></h1>
+            <p class="hero-lead-text">Ljetovanja, zimovanja, gradski turizam i egzotične destinacije — sve na jednom mjestu.</p>
+
+            <div class="hero-search-container">
+                <div class="search-input-group">
+                    <span class="search-icon-marker">📍</span>
+                    <span class="search-placeholder-text">Lokacija</span>
+                </div>
+                <div class="search-vertical-line"></div>
+                <div class="search-input-group">
+                    <span class="search-icon-marker">📅</span>
+                    <span class="search-placeholder-text">Datum</span>
+                </div>
+                <div class="search-vertical-line"></div>
+                <div class="search-input-group">
+                    <span class="search-icon-marker">👥</span>
+                    <span class="search-placeholder-text">Gosti</span>
+                </div>
+                <button class="btn-search-execute">🔍</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- DINAMIČKE KATEGORIJE -->
+    <section id="destinacije" class="section-categories-wrapper">
+        <div class="categories-tab-bar">
+            <button onclick="setCat('ljeto')" class="cat-tab-item active" data-cat="ljeto" id="cat-btn-ljeto">
+                <span class="cat-badge-avatar">☀️</span>
+                <span class="cat-badge-label">Ljetovanje</span>
+            </button>
+            <button onclick="setCat('zima')" class="cat-tab-item" data-cat="zima" id="cat-btn-zima">
+                <span class="cat-badge-avatar">❄️</span>
+                <span class="cat-badge-label">Zimovanje</span>
+            </button>
+            <button onclick="setCat('grad')" class="cat-tab-item" data-cat="grad" id="cat-btn-grad">
+                <span class="cat-badge-avatar">🏙️</span>
+                <span class="cat-badge-label">Gradski turizam</span>
+            </button>
+        </div>
+
+        <div class="container-standard">
+            <div id="cat-grid" class="responsive-grid-layout column-4"></div>
+        </div>
+    </section>
+
+    <!-- ZAŠTO IZABRATI NAS -->
+    <section id="zasto" class="section-features-highlights">
+        <div class="container-standard">
+            <h2 class="section-main-heading">Zašto izabrati nas?</h2>
+            <div class="responsive-grid-layout column-3 text-center-items">
+                <div class="feature-item-card">
+                    <span class="feature-large-emoji">💰</span>
+                    <h3 class="feature-sub-title">Provjereno najpovoljniji</h3>
+                    <p class="feature-description-text">Najbolji odnos cijene i kvaliteta na tržištu.</p>
+                </div>
+                <div class="feature-item-card">
+                    <span class="feature-large-emoji">🛡️</span>
+                    <h3 class="feature-sub-title">Sigurna rezervacija</h3>
+                    <p class="feature-description-text">Sigurno plaćanje i potvrđene rezervacije u par klikova.</p>
+                </div>
+                <div class="feature-item-card">
+                    <span class="feature-large-emoji">✨</span>
+                    <h3 class="feature-sub-title">Nezaboravno iskustvo</h3>
+                    <p class="feature-description-text">Pažljivo odabrane destinacije, hoteli i vodiči.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- POPULARNE DESTINACIJE -->
+    <section id="ponude" class="section-tinted-background">
+        <div class="container-standard">
+            <div class="centered-badge-header">
+                <span class="badge-accent-pill">Trenutno popularno</span>
+                <h2 class="section-main-heading">Popularne destinacije</h2>
+            </div>
+            <div id="popular-grid" class="responsive-grid-layout column-4"></div>
+        </div>
+    </section>
+
+    <!-- EGZOTIČNE DESTINACIJE (Lanzarote integracija) -->
+    <section class="section-standard-padding">
+        <div class="container-standard exotic-banner-card">
+            <div class="exotic-banner-grid">
+                <div class="exotic-text-panel">
+                    <h2 class="exotic-hero-heading">Egzotične destinacije</h2>
+                    <div class="accent-white-line"></div>
+                    <p class="exotic-lead-paragraph">Prepustite se miru i tišini najljepših egzotičnih destinacija planete. Pronađite svoje savršeno utočište i dozvolite sebi luksuz kakav zaslužujete.</p>
+                    <button class="btn-white-action">Vidi više &rarr;</button>
+                </div>
+                <div id="exotic-grid" class="responsive-grid-layout column-3 gap-compact"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FIRST MINUTE PONUDE -->
+    <section class="section-standard-padding">
+        <div class="container-standard">
+            <div class="centered-badge-header">
+                <span class="badge-accent-pill large-pill">First Minute Ponude</span>
+            </div>
+            <div id="firstminute-grid" class="responsive-grid-layout column-4"></div>
+            <div class="centered-action-row">
+                <button class="btn-brand-action">Vidi više &rarr;</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- DALEKA PUTOVANJA -->
+    <section class="section-dark-gradient">
+        <div class="container-standard">
+            <h2 class="exotic-hero-heading">Daleka putovanja</h2>
+            <div class="accent-white-line"></div>
+            <p class="exotic-lead-paragraph max-w-md">Daleke destinacije više nisu samo san. Vodimo vas na mjesta gdje su priče zauvijek upisane u sjećanja.</p>
+            <div id="faraway-grid" class="responsive-grid-layout column-5 mt-spaced"></div>
+        </div>
+    </section>
+
+    <!-- VIKEND PREDAH -->
+    <section class="section-standard-padding">
+        <div class="container-standard">
+            <div class="centered-badge-header">
+                <span class="badge-accent-pill">Kratko bjekstvo</span>
+                <h2 class="section-main-heading">Vikend predah</h2>
+            </div>
+            <p class="section-lead-summary">Da li osjećaš da ti je potreban onaj čuveni „restart"? Ne moraš putovati na drugi kraj svijeta da bi se osjećao/la kao na pravom odmoru. Ponekad je sve što ti treba samo promjena koordinata!</p>
+            <div id="weekend-grid" class="responsive-grid-layout column-4"></div>
+        </div>
+    </section>
+
+    <!-- RECENZIJE KLIJENATA -->
+    <section id="recenzije" class="section-tinted-background">
+        <div class="container-standard">
+            <h2 class="section-main-heading">Zadovoljni klijenti su naš prioritet!</h2>
+            <div id="reviews-grid" class="responsive-grid-layout column-3"></div>
+            <div class="centered-action-row">
+                <button class="btn-brand-action">Ostavi recenziju</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- POBOLJŠANI, MODERNIZOVANI I DETALJNI FOOTER -->
+    <footer class="enhanced-main-footer">
+        <div class="container-standard footer-top-grid">
+            <div class="footer-column-info">
+                <div class="footer-logo-brand">Be<span class="font-extrabold">Tourist</span></div>
+                <p class="footer-company-desc">
+                    Vaša vodeća agencija za luksuzna, egzotična i personalizovana putovanja širom svijeta. Stvaramo uspomene koje traju cijeli život uz maksimalnu sigurnost i najpovoljnije cijene.
+                </p>
+                <div class="footer-social-wrapper">
+                    <a href="#" class="footer-social-link-btn" title="Pratite nas na Facebook-u">FB</a>
+                    <a href="#" class="footer-social-link-btn" title="Pratite nas na Instagram-u">IG</a>
+                    <a href="#" class="footer-social-link-btn" title="Pratite nas na YouTube-u">YT</a>
+                </div>
+            </div>
+            
+            <div class="footer-column-links">
+                <h4 class="footer-section-heading">Brzi Linkovi</h4>
+                <ul class="footer-links-list">
+                    <li><a href="#destinacije">Naše Destinacije</a></li>
+                    <li><a href="#ponude">Popularni Aranžmani</a></li>
+                    <li><a href="#zasto">O Agenciji</a></li>
+                    <li><a href="#recenzije">Utisci Korisnika</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column-contact">
+                <h4 class="footer-section-heading">Kontakt podaci</h4>
+                <ul class="footer-contact-details-list">
+                    <li><span class="contact-inline-icon">📍</span> Banja Luka, Bosna i Hercegovina</li>
+                    <li><span class="contact-inline-icon">📞</span> +387 51 000 000</li>
+                    <li><span class="contact-inline-icon">✉️</span> info@betourist.com</li>
+                    <li><span class="contact-inline-icon">⏰</span> Pon - Sub: 08:00h - 20:00h</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom-bar-wrapper">
+            <div class="container-standard footer-bottom-inner-flex">
+                <p class="footer-copyright-text">&copy; 2026 BeTourist — Putovanja koja pamtiš. Sva prava zadržana.</p>
+                <div class="footer-legal-links">
+                    <a href="#">Uslovi korišćenja</a>
+                    <a href="#">Politika privatnosti</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- DETALJI DESTINACIJE MODAL (LANZAROTE) -->
+    <div id="destModal" class="modal-overlay scrollable hidden" onclick="closeDest()">
+        <div id="destContent" class="modal-wrapper large-wrapper" onclick="event.stopPropagation()"></div>
+    </div>
+
+    <!-- REZERVACIJA I PLAĆANJE MODAL -->
+    <div id="payModal" class="modal-overlay scrollable hidden" onclick="closePay()">
+        <div class="modal-wrapper segment-payment" onclick="event.stopPropagation()">
+            <div class="payment-modal-header">
+                <h2 class="payment-main-title">Rezervacija Aranžmana</h2>
+                <button onclick="closePay()" class="modal-close-btn relative-close">&times;</button>
+            </div>
+
+            <div id="payForm">
+                <div class="payment-summary-highlight-card">
+                    <div>
+                        <p id="payTitle" class="summary-package-title">—</p>
+                        <p class="summary-package-sub">Odabrana destinacija</p>
+                    </div>
+                    <div id="payPrice" class="summary-package-price">—</div>
+                </div>
+
+                <p class="payment-section-label">Odaberi način plaćanja</p>
+                <div class="payment-methods-grid-row">
+                    <button onclick="selectMethod(this)" class="pay-method-btn paypal-style">PayPal</button>
+                    <button onclick="selectMethod(this)" class="pay-method-btn visa-style">VISA</button>
+                    <button onclick="selectMethod(this)" class="pay-method-btn mastercard-style">
+                        <span class="mastercard-circle-red"></span><span class="mastercard-circle-orange"></span>
+                    </button>
+                </div>
+
+                <p class="payment-section-label">Podaci o kartici</p>
+                <div class="virtual-credit-card-preview">
+                    <div class="credit-card-top-row">
+                        <span class="bank-name-preview">🏛️ BeTourist BANK</span>
+                        <span class="card-type-preview">CREDIT</span>
+                    </div>
+                    <p class="credit-card-number-mock">0000  2363  8364  8269</p>
+                    <div class="credit-card-bottom-row">
+                        <div>
+                            <p class="card-label-mini">VALID THRU</p>
+                            <p class="card-value-mini">05/28</p>
+                        </div>
+                        <p class="card-holder-name-mock">Ime Prezime</p>
+                    </div>
+                </div>
+
+                <form class="actual-billing-form" onsubmit="event.preventDefault(); confirmPay();">
+                    <input type="text" placeholder="Broj kartice" class="form-input-field" required />
+                    <div class="form-inline-split-row">
+                        <input type="text" placeholder="MM/GG" class="form-input-field" required />
+                        <input type="password" placeholder="CVV" class="form-input-field" required />
+                    </div>
+                    <input type="text" placeholder="Ime i prezime na kartici" class="form-input-field" required />
+
+                    <div class="payment-final-checkout-row">
+                        <span class="checkout-total-label">Ukupno za uplatu</span>
+                        <span id="payTotal" class="checkout-total-price">—</span>
+                    </div>
+                    <button class="btn-brand-full large-btn">Izvrši Sigurno Plaćanje</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL USPJEŠNE REZERVACIJE -->
+    <div id="successModal" class="modal-overlay hidden" onclick="closeSuccess()">
+        <div class="modal-wrapper max-w-sm success-modal-wrapper" onclick="event.stopPropagation()">
+            <div class="payment-success-feedback-box">
+                <div class="success-checkmark-circle">✓</div>
+                <h3 class="success-feedback-title">Rezervacija uspješna!</h3>
+                <p class="success-feedback-text">Hvala što ste izabrali BeTourist. Detalji aranžmana i potvrda uplate su poslati na vaš email.</p>
+                <button onclick="closeSuccess()" class="btn-brand-action padded-btn">Zatvori prozor</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Povezivanje eksternog JavaScript fajla -->
+    <script src="script.js"></script>
+</body>
+</html>
